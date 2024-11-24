@@ -114,3 +114,18 @@ for ($i = 0; $i < 10; $i++) {
 }
 
 echo 'Évaluations insérées avec succès.' . PHP_EOL;
+
+$stmt = $pdo->prepare("
+    INSERT INTO command_product (Command_ID, Product_ID, Quantity)
+    VALUES (:command_id, :product_id, :quantity)
+");
+
+for ($i = 0; $i < 10; $i++) {
+    $stmt->execute([
+        ':command_id' => $faker->numberBetween(1, 10),  // ID de commande existante
+        ':product_id' => $faker->numberBetween(1, 10),  // ID de produit existant
+        ':quantity' => $faker->numberBetween(1, 5)      // Quantité entre 1 et 5
+    ]);
+}
+
+echo 'Produits associés aux commandes avec succès.' . PHP_EOL;
